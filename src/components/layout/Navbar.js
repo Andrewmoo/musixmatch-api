@@ -9,10 +9,12 @@ export class Navbar extends Component {
 
     findTrack = (dispatch, e) => {
         e.preventDefault()
-
-        axios.get(`https://cors-anywhere.herokuapp.com/https://api.musixmatch.com/ws/1.1/track.search?q_track=${this.state.trackTitle}&page_size=10&page=1&s_track_rating=desc&apikey=a6b2f0e1a94ca0d01545accc81b08b64`)
+        //API request to search for a track
+        axios.get(`https://cors-anywhere.herokuapp.com/https://api.musixmatch.com/ws/1.1/track.search?q_track=
+        ${this.state.trackTitle}&page_size=10&page=1&s_track_rating=desc&apikey=a6b2f0e1a94ca0d01545accc81b08b64`)
         .then(res => {
             //console.log(res.data);
+            //Dispatchs an action to the context called SEARCH_TRACKS with a payload of tracks that match the search
             dispatch({
                 type: 'SEARCH_TRACKS',
                 payload: res.data.message.body.track_list
@@ -22,7 +24,7 @@ export class Navbar extends Component {
         })
         .catch(err => console.log(err));
     }
-
+    //Event listener to set the state to whatever is inputed
     onChange= (e) => {
         this.setState({[e.target.name]: e.target.value})
     }
